@@ -249,12 +249,15 @@ services:
   admin_elecciones:
     image: webdevops/php-nginx:7.4
     restart: always
-    ports:
-      - 9200:80
+    expose:
+      - "80"
     volumes:
       - /root/Documents/frontend/webPanelElecciones:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=votaciones.facturaprepago.com
+      - LETSENCRYPT_HOST=votaciones.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   api_facturaprepago:
     image: webdevops/php-nginx:7.4
