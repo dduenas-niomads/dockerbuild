@@ -1,0 +1,273 @@
+version: '2.3'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /root/dockerbuild/ssl:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    volumes:
+      - /root/dockerbuild/ssl:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy:rw
+
+  mysql_db_container:
+    restart: always
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+
+  adminer_container:
+    restart: always
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+#    ports:
+#      - 80:8080
+    expose:
+      - "8080"
+    environment:
+    #  - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=admnr.niomads.com
+      - LETSENCRYPT_HOST=admnr.niomads.com
+      - LETSENCRYPT_EMAIL=info@niomads.com 
+
+  api_defreesa:
+    image: webdevops/php-nginx:7.4
+    restart: always
+#    ports:
+#      - 8000:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/apiDefreesa:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=api-defreesa.defreesa.com
+      - LETSENCRYPT_HOST=api-defreesa.defreesa.com
+      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+
+  api_defreever:
+    image: webdevops/php-nginx:7.4
+    restart: always
+#    ports:
+#      - 8100:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/apiDefreever:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=api-defreever.defreesa.com
+      - LETSENCRYPT_HOST=api-defreever.defreesa.com
+      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+
+  api_defreesa_partner:
+    image: webdevops/php-nginx:7.4
+    restart: always
+#    ports:
+#      - 8500:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/apiDefreesaPartner:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=api-partner.defreesa.com
+      - LETSENCRYPT_HOST=api-partner.defreesa.com
+      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+
+  static_abogados:
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/abogados:/php-code/:rw
+    environment:
+      - SMTP_SERVER=smtp.gmail.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=info@niomads.com # the username for the mail server
+      - SMTP_PASS=122020Dzc! # the password for the mail server
+      - VIRTUAL_HOST=uniondeabogadosyasesoresfinancieros.es,www.uniondeabogadosyasesoresfinancieros.es
+      - LETSENCRYPT_HOST=uniondeabogadosyasesoresfinancieros.es,www.uniondeabogadosyasesoresfinancieros.es
+      - LETSENCRYPT_EMAIL=info@uniondeabogadosyasesoresfinancieros.es
+
+  static_udayaf:
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/abogados:/php-code/:rw
+    environment:
+      - SMTP_SERVER=smtp.gmail.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=info@niomads.com # the username for the mail server
+      - SMTP_PASS=122020Dzc! # the password for the mail server
+      - VIRTUAL_HOST=udayaf.es,www.udayaf.es
+      - LETSENCRYPT_HOST=udayaf.es,www.udayaf.es
+      - LETSENCRYPT_EMAIL=info@udayaf.es
+
+  static_mehgirlsclub:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/mehgirlsclub:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=mehgirlsclub.niomads.com
+      - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
+      - LETSENCRYPT_EMAIL=info@niomads.com
+
+  static_plarcoint:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/plarcoint:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=plarcoint.es,www.plarcoint.es
+      - LETSENCRYPT_HOST=plarcoint.es,www.plarcoint.es
+      - LETSENCRYPT_EMAIL=contacto@plarcoint.es
+
+  static_niomads:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/niomads:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=niomads.com,www.niomads.com
+      - LETSENCRYPT_HOST=niomads.com,www.niomads.com
+      - LETSENCRYPT_EMAIL=admin@niomads.com
+
+  static_defreesa:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/defreesa:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=defreesa.com,www.defreesa.com
+      - LETSENCRYPT_HOST=defreesa.com,www.defreesa.com
+      - LETSENCRYPT_EMAIL=info@defreesa.com
+
+  ecommerce_suap:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/frontend/suapProject:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_EMAIL=info@suap.pe
+
+  static_tanatologia:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/tanatologiaperu:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+      - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+      - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
+
+  admin_defreesa:
+    image: webdevops/php-nginx:7.4
+    restart: always
+#    ports:
+#      - 8200:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/frontend/adminDefreesa:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=partner.defreesa.com
+      - LETSENCRYPT_HOST=partner.defreesa.com
+      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+
+  admin_facturaprepago:
+    image: webdevops/php-nginx:7.4
+    restart: always
+#    ports:
+#      - 9000:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/frontend/adminFacturaPrepago:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=admin.facturaprepago.com
+      - LETSENCRYPT_HOST=admin.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+
+  clientneumologiaperu:
+    image: nginx
+    restart: always
+#    ports:
+#      - 9000:80
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=neumologiayneumopediatria.com
+      - LETSENCRYPT_HOST=neumologiayneumopediatria.com
+      - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
+
+  admin_elecciones:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 9200:80
+    volumes:
+      - /root/Documents/frontend/webPanelElecciones:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+
+  api_facturaprepago:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/apiFacturaPrepago:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=api.facturaprepago.com
+      - LETSENCRYPT_HOST=api.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+
+
+volumes:
+    mysql_db_data_container:
+
+

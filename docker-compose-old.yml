@@ -1,0 +1,228 @@
+version: '2.3'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /root/dockerbuild/ssl:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    volumes:
+      - /root/dockerbuild/ssl:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy:rw
+
+  mysql_db_container:
+    restart: always
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+
+  adminer_container:
+    restart: always
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+    ports:
+      - 8080:8080
+
+  api_defreesa:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - /root/Documents/backend/apiDefreesa:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+
+  api_defreever:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 8100:80
+    volumes:
+      - /root/Documents/backend/apiDefreever:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+
+  api_defreesa_partner:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 8500:80
+    volumes:
+      - /root/Documents/backend/apiDefreesaPartner:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+
+  abogados:
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/abogados:/php-code/:rw
+    environment:
+      - SMTP_SERVER=smtp.gmail.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=info@niomads.com # the username for the mail server
+      - SMTP_PASS=122020Dzc! # the password for the mail server
+      - VIRTUAL_HOST=uniondeabogadosyasesoresfinancieros.es,www.uniondeabogadosyasesoresfinancieros.es
+      - LETSENCRYPT_HOST=uniondeabogadosyasesoresfinancieros.es,www.uniondeabogadosyasesoresfinancieros.es
+      - LETSENCRYPT_EMAIL=info@uniondeabogadosyasesoresfinancieros.es
+
+  abogados2:
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/abogados:/php-code/:rw
+    environment:
+      - SMTP_SERVER=smtp.gmail.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=info@niomads.com # the username for the mail server
+      - SMTP_PASS=122020Dzc! # the password for the mail server
+      - VIRTUAL_HOST=udayaf.es,www.udayaf.es
+      - LETSENCRYPT_HOST=udayaf.es,www.udayaf.es
+      - LETSENCRYPT_EMAIL=info@udayaf.es
+
+  plarcoint:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/plarcoint:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=plarcoint.es,www.plarcoint.es
+      - LETSENCRYPT_HOST=plarcoint.es,www.plarcoint.es
+      - LETSENCRYPT_EMAIL=contacto@plarcoint.es
+
+  niomads:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/niomads:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=niomads.com,www.niomads.com
+      - LETSENCRYPT_HOST=niomads.com,www.niomads.com
+      - LETSENCRYPT_EMAIL=admin@niomads.com
+
+  defreesa:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/defreesa:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=defreesa.com,www.defreesa.com
+      - LETSENCRYPT_HOST=defreesa.com,www.defreesa.com
+      - LETSENCRYPT_EMAIL=info@defreesa.com
+
+  suap:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/suap:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_EMAIL=info@suap.pe
+
+
+  tanatologia:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/tanatologiaperu:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+      - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+      - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
+
+
+  admincapeiturc:
+    image: nginx
+    restart: always
+    ports:
+      - 8300:80
+    volumes:
+      - /root/Documents/html/admincapeiturc:/usr/share/nginx/html:ro
+
+
+  capeiturcmarket:
+    image: nginx
+    restart: always
+    ports:
+      - 8400:80
+    volumes:
+      - /root/Documents/html/capeiturcmarket:/usr/share/nginx/html:ro
+
+
+  admindefreesa:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 8200:80
+    volumes:
+      - /root/Documents/backend/adminDefreesa:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=admin.defreesa.com
+#      - LETSENCRYPT_HOST=admin.defreesa.com
+#      - LETSENCRYPT_EMAIL=info@defreesa.com
+
+
+  adminfacturaprepago:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 9000:80
+    volumes:
+      - /root/Documents/frontend/adminFacturaPrepago:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=admin.facturaprepago.com
+#      - LETSENCRYPT_HOST=admin.defreesa.com
+#      - LETSENCRYPT_EMAIL=info@defreesa.com
+
+
+  apifacturaprepago:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    ports:
+      - 9100:80
+    volumes:
+      - /root/Documents/backend/apiFacturaPrepago:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+
+
+volumes:
+    mysql_db_data_container:
+
