@@ -230,15 +230,18 @@ services:
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   clientneumologiaperu:
-    image: nginx
+#   image: nginx
+    image: webdevops/php-nginx:7.4
     restart: always
 #    ports:
 #      - 9000:80
     expose:
       - "80"
     volumes:
-      - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
+      - /root/Documents/frontend/clientNeumologiaPeru:/app:rw
+#      - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
     environment:
+      - WEB_DOCUMENT_ROOT=/app/public
       - VIRTUAL_HOST=neumologiayneumopediatria.com
       - LETSENCRYPT_HOST=neumologiayneumopediatria.com
       - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
