@@ -136,19 +136,6 @@ services:
       - LETSENCRYPT_HOST=neumologiayneumopediatria.com
       - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
 
-  admin_elecciones:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/frontend/webPanelElecciones:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=votaciones.facturaprepago.com
-      - LETSENCRYPT_HOST=votaciones.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
-
   ecommerce_suap:
     image: webdevops/php-nginx:7.4
     restart: always
@@ -246,6 +233,19 @@ services:
       - LETSENCRYPT_HOST=admin.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
+  admin_elecciones:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/frontend/webPanelElecciones:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=votaciones.facturaprepago.com
+      - LETSENCRYPT_HOST=votaciones.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  
   ecommerce_template:
     image: wordpress
     restart: always
@@ -292,9 +292,9 @@ services:
       - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
       - SMTP_USER=info@niomads.com # the username for the mail server
       - SMTP_PASS=122020Dzc! # the password for the mail server
-      - VIRTUAL_HOST=lacholapower.niomads.com
-      - LETSENCRYPT_HOST=lacholapower.niomads.com
-      - LETSENCRYPT_EMAIL=info@niomads.com
+      - VIRTUAL_HOST=facturaprepago.com, www.facturaprepago.com
+      - LETSENCRYPT_HOST=facturaprepago.com, www.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
 volumes:
     mysql_db_data_container:
