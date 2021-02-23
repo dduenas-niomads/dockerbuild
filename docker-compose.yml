@@ -277,8 +277,8 @@ services:
       - DB_NAME=prestashop_template
       - PS_INSTALL_AUTO=0
       - VIRTUAL_HOST=prestashop.facturaprepago.com
-      - LETSENCRYPT_HOST=prestashop.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+      # - LETSENCRYPT_HOST=prestashop.facturaprepago.com
+      # - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   static_facturaprepago:
     image: kimbtechnologies/php_smtp_nginx:latest
