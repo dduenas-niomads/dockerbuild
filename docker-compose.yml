@@ -280,6 +280,21 @@ services:
       - LETSENCRYPT_HOST=prestashop.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
+  static_facturaprepago:
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/facturaprepago:/php-code/:rw
+    environment:
+      - SMTP_SERVER=smtp.gmail.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=info@niomads.com # the username for the mail server
+      - SMTP_PASS=122020Dzc! # the password for the mail server
+      - VIRTUAL_HOST=lacholapower.niomads.com
+      - LETSENCRYPT_HOST=lacholapower.niomads.com
+      - LETSENCRYPT_EMAIL=info@niomads.com
 
 volumes:
     mysql_db_data_container:
