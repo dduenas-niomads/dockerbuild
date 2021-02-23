@@ -246,21 +246,21 @@ services:
       - LETSENCRYPT_HOST=votaciones.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
   
-  # ecommerce_template:
-  #   image: wordpress
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #     - /root/Documents/ecommerce/ecommerce_template:/var/www/html
-  #   environment:
-  #     - WORDPRESS_DB_HOST=mysql_db_container
-  #     - WORDPRESS_DB_USER=root
-  #     - WORDPRESS_DB_PASSWORD=root
-  #     - WORDPRESS_DB_NAME=ecommerce_template
-  #     - VIRTUAL_HOST=woocommerce.facturaprepago.com
-  #     - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
-  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  woocommerce_template:
+    image: wordpress
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/ecommerce/woocommerce_template:/var/www/html
+    environment:
+      - WORDPRESS_DB_HOST=mysql_db_container
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=root
+      - WORDPRESS_DB_NAME=woocommerce_template
+      - VIRTUAL_HOST=woocommerce.facturaprepago.com
+      - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   prestashop_template:
     image: prestashop/prestashop:1.7-7.0
