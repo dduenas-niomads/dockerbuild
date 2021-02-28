@@ -237,7 +237,9 @@ services:
     image: webdevops/php-nginx:7.4
     restart: always
     expose:
-      - "80"
+      - "80"  
+    mem_limit: 2000m
+    mem_reservation: 500m
     volumes:
       - /root/Documents/frontend/webPanelElecciones:/app:rw
     environment:
