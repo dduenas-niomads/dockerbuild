@@ -110,18 +110,18 @@ services:
       - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
       - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
 
-  admin_defreesa:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/frontend/adminDefreesa:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=partner.defreesa.com
-      - LETSENCRYPT_HOST=partner.defreesa.com
-      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+  # admin_defreesa:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/frontend/adminDefreesa:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=partner.defreesa.com
+  #     - LETSENCRYPT_HOST=partner.defreesa.com
+  #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
   clientneumologiaperu:
     image: nginx
@@ -136,18 +136,18 @@ services:
       - LETSENCRYPT_HOST=neumologiayneumopediatria.com
       - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
 
-  ecommerce_suap:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/frontend/suapProject:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=suap.pe, www.suap.pe
-      - LETSENCRYPT_HOST=suap.pe, www.suap.pe
-      - LETSENCRYPT_EMAIL=info@suap.pe
+  # ecommerce_suap:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/frontend/suapProject:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=suap.pe, www.suap.pe
+  #     - LETSENCRYPT_HOST=suap.pe, www.suap.pe
+  #     - LETSENCRYPT_EMAIL=info@suap.pe
 
 # niomads
   adminer_container:
@@ -207,31 +207,31 @@ services:
       - LETSENCRYPT_EMAIL=info@niomads.com
 
 # facturaprepago
-  api_facturaprepago:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/backend/apiFacturaPrepago:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=api.facturaprepago.com
-      - LETSENCRYPT_HOST=api.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  # api_facturaprepago:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/backend/apiFacturaPrepago:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=api.facturaprepago.com
+  #     - LETSENCRYPT_HOST=api.facturaprepago.com
+  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
-  admin_facturaprepago:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/frontend/adminFacturaPrepago:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=admin.facturaprepago.com
-      - LETSENCRYPT_HOST=admin.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  # admin_facturaprepago:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/frontend/adminFacturaPrepago:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=admin.facturaprepago.com
+  #     - LETSENCRYPT_HOST=admin.facturaprepago.com
+  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   admin_elecciones:
     image: webdevops/php-nginx:7.4
@@ -246,37 +246,37 @@ services:
       - LETSENCRYPT_HOST=votaciones.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
   
-  woocommerce_template:
-    image: wordpress
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/ecommerce/woocommerce_template:/var/www/html
-    environment:
-      - WORDPRESS_DB_HOST=mysql_db_container
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=root
-      - WORDPRESS_DB_NAME=woocommerce_template
-      - VIRTUAL_HOST=woocommerce.facturaprepago.com
-      - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  # woocommerce_template:
+  #   image: wordpress
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/ecommerce/woocommerce_template:/var/www/html
+  #   environment:
+  #     - WORDPRESS_DB_HOST=mysql_db_container
+  #     - WORDPRESS_DB_USER=root
+  #     - WORDPRESS_DB_PASSWORD=root
+  #     - WORDPRESS_DB_NAME=woocommerce_template
+  #     - VIRTUAL_HOST=woocommerce.facturaprepago.com
+  #     - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
+  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
-  prestashop_template:
-    image: prestashop/prestashop:1.7-7.0
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/ecommerce/prestashop_template:/var/www/html
-    environment:
-      - PS_DEV_MODE=1
-      - DB_SERVER=mysql_db_container
-      - DB_USER=root
-      - DB_PASSWD=root
-      - DB_NAME=prestashop_template
-      - PS_INSTALL_AUTO=0
-      - VIRTUAL_HOST=prestashop.facturaprepago.com
+  # prestashop_template:
+  #   image: prestashop/prestashop:1.7-7.0
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/ecommerce/prestashop_template:/var/www/html
+  #   environment:
+  #     - PS_DEV_MODE=1
+  #     - DB_SERVER=mysql_db_container
+  #     - DB_USER=root
+  #     - DB_PASSWD=root
+  #     - DB_NAME=prestashop_template
+  #     - PS_INSTALL_AUTO=0
+  #     - VIRTUAL_HOST=prestashop.facturaprepago.com
       # - LETSENCRYPT_HOST=prestashop.facturaprepago.com
       # - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
