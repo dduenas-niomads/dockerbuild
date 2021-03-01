@@ -207,6 +207,20 @@ services:
       - LETSENCRYPT_EMAIL=info@niomads.com
 
 # facturaprepago
+
+  api_facturaprepago:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/apiFe:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=api-fe.facturaprepago.com
+      - LETSENCRYPT_HOST=api-fe.facturaprepago.com
+      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+
   # api_facturaprepago:
   #   image: webdevops/php-nginx:7.4
   #   restart: always
