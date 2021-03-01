@@ -216,7 +216,7 @@ services:
     volumes:
       - /root/Documents/backend/apiFe:/app:rw
     environment:
-      - WEB_DOCUMENT_ROOT=/app/public
+      - WEB_DOCUMENT_ROOT=/app
       - VIRTUAL_HOST=api-fe.facturaprepago.com
       - LETSENCRYPT_HOST=api-fe.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
