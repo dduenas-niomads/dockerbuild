@@ -110,6 +110,18 @@ services:
       - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
       - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
 
+  static_otros_lares:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/html/webOtrosLares:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=otroslaresperu.com, www.otroslaresperu.com
+      - LETSENCRYPT_HOST=otroslaresperu.com, www.otroslaresperu.com
+      - LETSENCRYPT_EMAIL=contacto@otroslaresperu.com
+
   # admin_defreesa:
   #   image: webdevops/php-nginx:7.4
   #   restart: always
