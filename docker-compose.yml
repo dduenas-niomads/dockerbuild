@@ -111,16 +111,20 @@ services:
       - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
 
   static_otros_lares:
-    image: nginx
+    image: kimbtechnologies/php_smtp_nginx:latest
     restart: always
     expose:
       - "80"
     volumes:
-      - /root/Documents/html/webOtrosLares:/usr/share/nginx/html:ro
+      - /root/Documents/html/webOtrosLares:/php-code/:rw
     environment:
-      - VIRTUAL_HOST=otroslaresperu.com, www.otroslaresperu.com
-      - LETSENCRYPT_HOST=otroslaresperu.com, www.otroslaresperu.com
-      - LETSENCRYPT_EMAIL=contacto@otroslaresperu.com
+      - SMTP_SERVER=SMTP.Office365.com # the mail server host
+      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+      - SMTP_USER=${OTROSLARES_EMAIL} # the username for the mail server
+      - SMTP_PASS=${OTROSLARES_EMAIL_PASSWORD} # the password for the mail server
+      - VIRTUAL_HOST=otroslaresperu.com,www.otroslaresperu.com
+      - LETSENCRYPT_HOST=otroslaresperu.com,www.otroslaresperu.com
+      - LETSENCRYPT_EMAIL=${OTROSLARES_EMAIL}
 
   # admin_defreesa:
   #   image: webdevops/php-nginx:7.4
@@ -135,18 +139,18 @@ services:
   #     - LETSENCRYPT_HOST=partner.defreesa.com
   #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
-  clientneumologiaperu:
-    image: nginx
-    restart: always
-    expose:
-      - "80"
-    volumes:
-     - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=neumologiayneumopediatria.com
-      - LETSENCRYPT_HOST=neumologiayneumopediatria.com
-      - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
+  # clientneumologiaperu:
+  #   image: nginx
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #    - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=neumologiayneumopediatria.com
+  #     - LETSENCRYPT_HOST=neumologiayneumopediatria.com
+  #     - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
 
   # ecommerce_suap:
   #   image: webdevops/php-nginx:7.4
