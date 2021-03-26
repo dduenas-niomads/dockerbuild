@@ -84,7 +84,7 @@ services:
     environment:
       - VIRTUAL_HOST=casasdrywall.com, www.casasdrywall.com
       - LETSENCRYPT_HOST=casasdrywall.com, www.casasdrywall.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
+      - LETSENCRYPT_EMAIL="${NIOMADS_EMAIL}"
 
   static_defreesa:
     image: nginx
@@ -172,7 +172,7 @@ services:
     environment:
       - VIRTUAL_HOST=admnr.niomads.com
       - LETSENCRYPT_HOST=admnr.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL} 
+      - LETSENCRYPT_EMAIL="${NIOMADS_EMAIL}" 
 
   static_mehgirlsclub:
     image: nginx
@@ -184,7 +184,7 @@ services:
     environment:
       - VIRTUAL_HOST=mehgirlsclub.niomads.com
       - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
+      - LETSENCRYPT_EMAIL="${NIOMADS_EMAIL}"
 
   static_niomads:
     image: kimbtechnologies/php_smtp_nginx:latest
@@ -196,11 +196,11 @@ services:
     environment:
       - SMTP_SERVER=smtp.gmail.com # the mail server host
       - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-      - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-      - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
+      - SMTP_USER="${NIOMADS_EMAIL}" # the username for the mail server
+      - SMTP_PASS="${NIOMADS_EMAIL_PASSWORD}" # the password for the mail server
       - VIRTUAL_HOST=niomads.com,www.niomads.com
       - LETSENCRYPT_HOST=niomads.com,www.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
+      - LETSENCRYPT_EMAIL="${NIOMADS_EMAIL}"
 
   static_lacholapower:
     image: kimbtechnologies/php_smtp_nginx:latest
@@ -212,11 +212,11 @@ services:
     environment:
       - SMTP_SERVER=smtp.gmail.com # the mail server host
       - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-      - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-      - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
+      - SMTP_USER="${NIOMADS_EMAIL}" # the username for the mail server
+      - SMTP_PASS="${NIOMADS_EMAIL_PASSWORD}" # the password for the mail server
       - VIRTUAL_HOST=lacholapower.niomads.com
       - LETSENCRYPT_HOST=lacholapower.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
+      - LETSENCRYPT_EMAIL="${NIOMADS_EMAIL}"
 
 # facturaprepago
 
@@ -318,8 +318,8 @@ services:
     environment:
       - SMTP_SERVER=smtp.gmail.com # the mail server host
       - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-      - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-      - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
+      - SMTP_USER="${NIOMADS_EMAIL}" # the username for the mail server
+      - SMTP_PASS="${NIOMADS_EMAIL_PASSWORD}" # the password for the mail server
       - VIRTUAL_HOST=facturaprepago.com, www.facturaprepago.com
       - LETSENCRYPT_HOST=facturaprepago.com, www.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
