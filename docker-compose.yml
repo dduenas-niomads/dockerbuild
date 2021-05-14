@@ -139,31 +139,33 @@ services:
   #     - LETSENCRYPT_HOST=partner.defreesa.com
   #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
-  # clientneumologiaperu:
-  #   image: nginx
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #    - /root/Documents/html/frontendReservas:/usr/share/nginx/html:ro
-  #   environment:
-  #     - WEB_DOCUMENT_ROOT=/app/public
-  #     - VIRTUAL_HOST=neumologiayneumopediatria.com
-  #     - LETSENCRYPT_HOST=neumologiayneumopediatria.com
-  #     - LETSENCRYPT_EMAIL=contacto@neumologiayneumopediatria.com
+  ecommerce_suap:
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/frontend/suapProject:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_HOST=suap.pe, www.suap.pe
+      - LETSENCRYPT_EMAIL=info@suap.pe
 
-  # ecommerce_suap:
-  #   image: webdevops/php-nginx:7.4
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #     - /root/Documents/frontend/suapProject:/app:rw
-  #   environment:
-  #     - WEB_DOCUMENT_ROOT=/app/public
-  #     - VIRTUAL_HOST=suap.pe, www.suap.pe
-  #     - LETSENCRYPT_HOST=suap.pe, www.suap.pe
-  #     - LETSENCRYPT_EMAIL=info@suap.pe
+  meh_girls_club:
+    # network_mode: host
+    image: webdevops/php-nginx:7.4
+    restart: always
+    container_name: mehgirlsclublaravel
+    expose:
+      - 80
+    volumes:
+      - /root/Documents/frontend/mehGirlsClub:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app
+      - VIRTUAL_HOST=mehgirlsclub.niomads.com
+      - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
+      - LETSENCRYPT_EMAIL=info@niomads.com
 
 # niomads
   adminer_container:
@@ -177,18 +179,6 @@ services:
       - VIRTUAL_HOST=admnr.niomads.com
       - LETSENCRYPT_HOST=admnr.niomads.com
       - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL} 
-
-  static_mehgirlsclub:
-    image: nginx
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/html/mehgirlsclub:/usr/share/nginx/html:ro
-    environment:
-      - VIRTUAL_HOST=mehgirlsclub.niomads.com
-      - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
 
   static_niomads:
     image: kimbtechnologies/php_smtp_nginx:latest
@@ -206,37 +196,7 @@ services:
       - LETSENCRYPT_HOST=niomads.com,www.niomads.com
       - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
 
-  static_lacholapower:
-    image: kimbtechnologies/php_smtp_nginx:latest
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/html/lacholapower:/php-code/:rw
-    environment:
-      - SMTP_SERVER=smtp.gmail.com # the mail server host
-      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-      - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-      - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
-      - VIRTUAL_HOST=lacholapower.niomads.com
-      - LETSENCRYPT_HOST=lacholapower.niomads.com
-      - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
-
 # facturaprepago
-
-  # api_fe:
-  #   image: webdevops/php-nginx:7.4
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #     - /root/Documents/backend/apiFe:/app:rw
-  #   environment:
-  #     - WEB_DOCUMENT_ROOT=/app
-  #     - VIRTUAL_HOST=api-fe.facturaprepago.com
-  #     - LETSENCRYPT_HOST=api-fe.facturaprepago.com
-  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
-
   api_facturaprepago:
     image: webdevops/php-nginx:7.4
     restart: always
@@ -262,21 +222,6 @@ services:
       - VIRTUAL_HOST=admin.facturaprepago.com
       - LETSENCRYPT_HOST=admin.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
-
-  # admin_elecciones:
-  #   image: webdevops/php-nginx:7.4
-  #   restart: always
-  #   expose:
-  #     - "80"  
-  #   mem_limit: 2000m
-  #   mem_reservation: 500m
-  #   volumes:
-  #     - /root/Documents/frontend/webPanelElecciones:/app:rw
-  #   environment:
-  #     - WEB_DOCUMENT_ROOT=/app/public
-  #     - VIRTUAL_HOST=votaciones.facturaprepago.com
-  #     - LETSENCRYPT_HOST=votaciones.facturaprepago.com
-  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
   
   woocommerce_template:
     image: wordpress
@@ -292,24 +237,6 @@ services:
       - WORDPRESS_DB_NAME=woocommerce_template
       - VIRTUAL_HOST=woocommerce.facturaprepago.com
       - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
-
-  prestashop_template:
-    image: prestashop/prestashop:1.7-7.0
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/ecommerce/prestashop_template:/var/www/html
-    environment:
-      - PS_DEV_MODE=1
-      - DB_SERVER=mysql_db_container
-      - DB_USER=root
-      - DB_PASSWD=root
-      - DB_NAME=prestashop_template
-      - PS_INSTALL_AUTO=0
-      - VIRTUAL_HOST=prestashop.facturaprepago.com
-      - LETSENCRYPT_HOST=prestashop.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   static_facturaprepago:
