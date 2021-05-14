@@ -162,7 +162,7 @@ services:
     volumes:
       - /root/Documents/frontend/mehGirlsClub:/app:rw
     environment:
-      - WEB_DOCUMENT_ROOT=/app
+      - WEB_DOCUMENT_ROOT=/app/public
       - VIRTUAL_HOST=mehgirlsclub.niomads.com
       - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
       - LETSENCRYPT_EMAIL=info@niomads.com
