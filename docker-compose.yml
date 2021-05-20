@@ -35,44 +35,44 @@ services:
       - mysql_db_data_container:/var/lib/mysql
 
 # clientes
-  api_defreesa:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/backend/apiDefreesa:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=api-defreesa.defreesa.com
-      - LETSENCRYPT_HOST=api-defreesa.defreesa.com
-      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+  # api_defreesa:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/backend/apiDefreesa:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=api-defreesa.defreesa.com
+  #     - LETSENCRYPT_HOST=api-defreesa.defreesa.com
+  #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
-  api_defreever:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/backend/apiDefreever:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=api-defreever.defreesa.com
-      - LETSENCRYPT_HOST=api-defreever.defreesa.com
-      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+  # api_defreever:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/backend/apiDefreever:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=api-defreever.defreesa.com
+  #     - LETSENCRYPT_HOST=api-defreever.defreesa.com
+  #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
-  api_defreesa_partner:
-    image: webdevops/php-nginx:7.4
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/backend/apiDefreesaPartner:/app:rw
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=api-partner.defreesa.com
-      - LETSENCRYPT_HOST=api-partner.defreesa.com
-      - LETSENCRYPT_EMAIL=contacto@defreesa.com
+  # api_defreesa_partner:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/backend/apiDefreesaPartner:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=api-partner.defreesa.com
+  #     - LETSENCRYPT_HOST=api-partner.defreesa.com
+  #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
   static_casasdrywall:
     image: nginx
@@ -86,17 +86,17 @@ services:
       - LETSENCRYPT_HOST=casasdrywall.com, www.casasdrywall.com
       - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL}
 
-  static_defreesa:
-    image: nginx
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/html/defreesa:/usr/share/nginx/html:ro
-    environment:
-      - VIRTUAL_HOST=defreesa.com,www.defreesa.com
-      - LETSENCRYPT_HOST=defreesa.com,www.defreesa.com
-      - LETSENCRYPT_EMAIL=info@defreesa.com
+  # static_defreesa:
+  #   image: nginx
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/html/defreesa:/usr/share/nginx/html:ro
+  #   environment:
+  #     - VIRTUAL_HOST=defreesa.com,www.defreesa.com
+  #     - LETSENCRYPT_HOST=defreesa.com,www.defreesa.com
+  #     - LETSENCRYPT_EMAIL=info@defreesa.com
 
   static_tanatologia:
     image: nginx
@@ -223,21 +223,21 @@ services:
       - LETSENCRYPT_HOST=admin.facturaprepago.com
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
   
-  woocommerce_template:
-    image: wordpress
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/ecommerce/woocommerce_template:/var/www/html
-    environment:
-      - WORDPRESS_DB_HOST=mysql_db_container
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=root
-      - WORDPRESS_DB_NAME=woocommerce_template
-      - VIRTUAL_HOST=woocommerce.facturaprepago.com
-      - LETSENCRYPT_HOST=woocommerce.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  # woocommerce_template:
+  #   image: wordpress
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/ecommerce/woocommerce_template:/var/www/html
+  #   environment:
+  #     - WORDPRESS_DB_HOST=mysql_db_container
+  #     - WORDPRESS_DB_USER=root
+  #     - WORDPRESS_DB_PASSWORD=root
+  #     - WORDPRESS_DB_NAME=woocommerce_template
+  #     - VIRTUAL_HOST=bellaworksclo.com
+  #     - LETSENCRYPT_HOST=bellaworksclo.com
+  #     - LETSENCRYPT_EMAIL=info@bellaworksclo.com
 
   static_facturaprepago:
     image: kimbtechnologies/php_smtp_nginx:latest
