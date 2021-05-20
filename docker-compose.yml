@@ -235,7 +235,7 @@ services:
       - WORDPRESS_DB_HOST=mysql_db_container
       - WORDPRESS_DB_USER=root
       - WORDPRESS_DB_PASSWORD=root
-      - WORDPRESS_DB_NAME=woocommerce_template
+      - WORDPRESS_DB_NAME=bellaworks
       - VIRTUAL_HOST=bellaworksclo.com
       - LETSENCRYPT_HOST=bellaworksclo.com
       - LETSENCRYPT_EMAIL=info@bellaworksclo.com
