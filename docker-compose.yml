@@ -111,17 +111,17 @@ services:
   #     - LETSENCRYPT_HOST=defreesa.com,www.defreesa.com
   #     - LETSENCRYPT_EMAIL=info@defreesa.com
 
-  static_tanatologia:
-    image: nginx
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/html/tanatologiaperu:/usr/share/nginx/html:ro
-    environment:
-      - VIRTUAL_HOST=tanatologiaperu.com, www.tanatologiaperu.com
-      - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
-      - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
+  # static_tanatologia:
+  #   image: nginx
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/html/tanatologiaperu:/usr/share/nginx/html:ro
+  #   environment:
+  #     - VIRTUAL_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+  #     - LETSENCRYPT_HOST=tanatologiaperu.com, www.tanatologiaperu.com
+  #     - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
 
   static_otros_lares:
     image: kimbtechnologies/php_smtp_nginx:latest
@@ -254,21 +254,21 @@ services:
       - LETSENCRYPT_HOST=bellaworksclo.com
       - LETSENCRYPT_EMAIL=info@bellaworksclo.com
 
-  static_facturaprepago:
-    image: kimbtechnologies/php_smtp_nginx:latest
-    restart: always
-    expose:
-      - "80"
-    volumes:
-      - /root/Documents/html/facturaprepago:/php-code/:rw
-    environment:
-      - SMTP_SERVER=smtp.gmail.com # the mail server host
-      - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-      - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-      - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
-      - VIRTUAL_HOST=facturaprepago.com, www.facturaprepago.com
-      - LETSENCRYPT_HOST=facturaprepago.com, www.facturaprepago.com
-      - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  # static_facturaprepago:
+  #   image: kimbtechnologies/php_smtp_nginx:latest
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/html/facturaprepago:/php-code/:rw
+  #   environment:
+  #     - SMTP_SERVER=smtp.gmail.com # the mail server host
+  #     - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
+  #     - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
+  #     - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
+  #     - VIRTUAL_HOST=facturaprepago.com, www.facturaprepago.com
+  #     - LETSENCRYPT_HOST=facturaprepago.com, www.facturaprepago.com
+  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
 volumes:
   mysql_db_data_container:
