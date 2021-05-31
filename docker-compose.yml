@@ -28,11 +28,26 @@ services:
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PWD}
     ports:
       - 3306:3306
     volumes:
       - mysql_db_data_container:/var/lib/mysql
+
+  sqlserver:
+    restart: always
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: '0:0'
+    container_name: sqlserver2019
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: ${SA_PWD}
+    volumes:
+      - ~/docker/sqlserver-data:/var/opt/mssql
+    networks:
+      - db_network
 
 # clientes
   # api_defreesa:
@@ -126,31 +141,32 @@ services:
       - LETSENCRYPT_HOST=otroslaresperu.com,www.otroslaresperu.com
       - LETSENCRYPT_EMAIL=${OTROSLARES_EMAIL}
 
-  # admin_defreesa:
-  #   image: webdevops/php-nginx:7.4
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #     - /root/Documents/frontend/adminDefreesa:/app:rw
-  #   environment:
-  #     - WEB_DOCUMENT_ROOT=/app/public
-  #     - VIRTUAL_HOST=partner.defreesa.com
-  #     - LETSENCRYPT_HOST=partner.defreesa.com
-  #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
-
-  ecommerce_suap:
+  admin_jcugarte:
+    container_name: jcugarte
     image: webdevops/php-nginx:7.4
     restart: always
     expose:
       - "80"
     volumes:
-      - /root/Documents/frontend/suapProject:/app:rw
+      - /root/Documents/frontend/adminJcUgarte:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=suap.pe, www.suap.pe
-      - LETSENCRYPT_HOST=suap.pe, www.suap.pe
-      - LETSENCRYPT_EMAIL=info@suap.pe
+      - VIRTUAL_HOST=jcugarte.niomads.com
+      - LETSENCRYPT_HOST=jcugarte.niomads.com
+      - LETSENCRYPT_EMAIL=contacto@jcugarte.com
+
+  # ecommerce_suap:
+  #   image: webdevops/php-nginx:7.4
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #   volumes:
+  #     - /root/Documents/frontend/suapProject:/app:rw
+  #   environment:
+  #     - WEB_DOCUMENT_ROOT=/app/public
+  #     - VIRTUAL_HOST=suap.pe, www.suap.pe
+  #     - LETSENCRYPT_HOST=suap.pe, www.suap.pe
+  #     - LETSENCRYPT_EMAIL=info@suap.pe
 
   meh_girls_club:
     # network_mode: host
