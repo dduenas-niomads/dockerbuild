@@ -254,21 +254,18 @@ services:
       - LETSENCRYPT_HOST=bellaworksclo.com
       - LETSENCRYPT_EMAIL=info@bellaworksclo.com
 
-  # static_facturaprepago:
-  #   image: kimbtechnologies/php_smtp_nginx:latest
-  #   restart: always
-  #   expose:
-  #     - "80"
-  #   volumes:
-  #     - /root/Documents/html/facturaprepago:/php-code/:rw
-  #   environment:
-  #     - SMTP_SERVER=smtp.gmail.com # the mail server host
-  #     - SMTP_PORT=587 # the port to deliver mails (587 for starttls or 465 for tls)
-  #     - SMTP_USER=${NIOMADS_EMAIL} # the username for the mail server
-  #     - SMTP_PASS=${NIOMADS_EMAIL_PASSWORD} # the password for the mail server
-  #     - VIRTUAL_HOST=facturaprepago.com, www.facturaprepago.com
-  #     - LETSENCRYPT_HOST=facturaprepago.com, www.facturaprepago.com
-  #     - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
+  simple_jcugarte:
+    container_name: simple_jcugarte
+    image: kimbtechnologies/php_smtp_nginx:latest
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/simple:/php-code/:rw
+    environment:
+      - VIRTUAL_HOST=jcugarte.com, www.jcugarte.com
+      - LETSENCRYPT_HOST=jcugarte.com, www.jcugarte.com
+      - LETSENCRYPT_EMAIL=contacto@jcugarte.com
 
 volumes:
   mysql_db_data_container:
