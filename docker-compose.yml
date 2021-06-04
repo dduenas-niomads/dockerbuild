@@ -177,9 +177,9 @@ services:
       - /root/Documents/frontend/mehGirlsClub:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=mehgirlsclub.niomads.com
-      - LETSENCRYPT_HOST=mehgirlsclub.niomads.com
-      - LETSENCRYPT_EMAIL=info@niomads.com
+      - VIRTUAL_HOST=mehgirlsclub.mehperu.com
+      - LETSENCRYPT_HOST=mehgirlsclub.mehperu.com
+      - LETSENCRYPT_EMAIL=info@mehperu.com
 
 # niomads
   adminer_container:
