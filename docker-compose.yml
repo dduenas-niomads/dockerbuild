@@ -1,6 +1,7 @@
 version: '2.3'
 services:
   nginx-proxy:
+    container_name: sysNginxProxy
     image: jwilder/nginx-proxy
     restart: always
     ports:
@@ -15,6 +16,7 @@ services:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
 
   letsencrypt:
+    container_name: sysLetsencrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: always
     volumes:
@@ -24,6 +26,7 @@ services:
       - nginx-proxy:rw
 
   mysql_db_container:
+    container_name: dbMysqlserver
     restart: always
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
@@ -35,10 +38,10 @@ services:
       - mysql_db_data_container:/var/lib/mysql
 
   sqlserver:
+    container_name: dbSqlserver
     restart: always
     image: mcr.microsoft.com/mssql/server:2019-latest
     user: '0:0'
-    container_name: sqlserver2019
     ports:
       - 1433:1433
     environment:
@@ -88,6 +91,7 @@ services:
   #     - LETSENCRYPT_EMAIL=contacto@defreesa.com
 
   static_casasdrywall:
+    container_name: staticCasasDrywall
     image: nginx
     restart: always
     expose:
@@ -124,6 +128,7 @@ services:
   #     - LETSENCRYPT_EMAIL=contacto@tanatologiaperu.com
 
   static_otros_lares:
+    container_name: staticOtrosLares
     image: kimbtechnologies/php_smtp_nginx:latest
     restart: always
     expose:
@@ -140,7 +145,7 @@ services:
       - LETSENCRYPT_EMAIL=${OTROSLARES_EMAIL}
 
   admin_jcugarte:
-    container_name: jcugarte
+    container_name: webappJcugarte
     image: webdevops/php-nginx:7.4
     restart: always
     expose:
@@ -168,9 +173,9 @@ services:
 
   meh_girls_club:
     # network_mode: host
+    container_name: webappMehgirlsclub
     image: webdevops/php-nginx:7.4
     restart: always
-    container_name: mehgirlsclublaravel
     expose:
       - 80
     volumes:
@@ -183,6 +188,7 @@ services:
 
 # niomads
   adminer_container:
+    container_name: sysAdminer
     restart: always
     image: adminer:latest
     environment:
@@ -195,6 +201,7 @@ services:
       - LETSENCRYPT_EMAIL=${NIOMADS_EMAIL} 
 
   static_niomads:
+    container_name: staticNiomads
     image: kimbtechnologies/php_smtp_nginx:latest
     restart: always
     expose:
@@ -212,6 +219,7 @@ services:
 
 # facturaprepago
   api_facturaprepago:
+    container_name: apiFacturaPregago
     image: webdevops/php-nginx:7.4
     restart: always
     expose:
@@ -225,6 +233,7 @@ services:
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
 
   admin_facturaprepago:
+    container_name: webappFacturaPrepago
     image: webdevops/php-nginx:7.4
     restart: always
     expose:
@@ -238,9 +247,9 @@ services:
       - LETSENCRYPT_EMAIL=contacto@facturaprepago.com
   
   woocommerce_template:
+    container_name: ecommerceBellaWorks
     image: wordpress
     restart: always
-    container_name: bellaworksclo
     expose:
       - "80"
     volumes:
@@ -255,7 +264,7 @@ services:
       - LETSENCRYPT_EMAIL=info@bellaworksclo.com
 
   simple_jcugarte:
-    container_name: simple_jcugarte
+    container_name: staticJcugarte
     image: kimbtechnologies/php_smtp_nginx:latest
     restart: always
     expose:
