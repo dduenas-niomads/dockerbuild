@@ -154,8 +154,8 @@ services:
       - /root/Documents/frontend/adminJcUgarte:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=jcugarte.niomads.com
-      - LETSENCRYPT_HOST=jcugarte.niomads.com
+      - VIRTUAL_HOST=jcugarte.com, www.jcugarte.com
+      - LETSENCRYPT_HOST=jcugarte.com, www.jcugarte.com
       - LETSENCRYPT_EMAIL=contacto@jcugarte.com
 
   # ecommerce_suap:
