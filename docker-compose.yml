@@ -146,7 +146,7 @@ services:
 
   admin_jcugarte:
     container_name: webappJcugarte
-    image: webdevops/php-nginx:7.4
+    image: dduenas21/laravel-mssql:latest
     restart: always
     expose:
       - "80"
