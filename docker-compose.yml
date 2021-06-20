@@ -154,8 +154,8 @@ services:
       - /root/Documents/frontend/adminJcUgarte:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=jcugarte.pe
-      - LETSENCRYPT_HOST=jcugarte.pe
+      - VIRTUAL_HOST=jcugarte.pe, www.jcugarte.pe
+      - LETSENCRYPT_HOST=jcugarte.pe, www.jcugarte.pe
       - LETSENCRYPT_EMAIL=contacto@jcugarte.com
 
   redirect_jcugarte:
