@@ -154,8 +154,22 @@ services:
       - /root/Documents/frontend/adminJcUgarte:/app:rw
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
-      - VIRTUAL_HOST=jcugarte.com, jcugarte.pe, jcugarte.niomads.com
-      - LETSENCRYPT_HOST=jcugarte.com, jcugarte.pe, jcugarte.niomads.com
+      - VIRTUAL_HOST=jcugarte.pe
+      - LETSENCRYPT_HOST=jcugarte.pe
+      - LETSENCRYPT_EMAIL=contacto@jcugarte.com
+
+  redirect_jcugarte:
+    container_name: redirectJcugarte
+    image: webdevops/php-nginx:7.4
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /root/Documents/backend/simple:/app:rw
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - VIRTUAL_HOST=jcugarte.com, www.jcugarte.com
+      - LETSENCRYPT_HOST=jcugarte.com, www.jcugarte.com
       - LETSENCRYPT_EMAIL=contacto@jcugarte.com
 
   # ecommerce_suap:
