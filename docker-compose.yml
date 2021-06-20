@@ -167,7 +167,7 @@ services:
     volumes:
       - /root/Documents/backend/simple:/app:rw
     environment:
-      - WEB_DOCUMENT_ROOT=/app/public
+      - WEB_DOCUMENT_ROOT=/app
       - VIRTUAL_HOST=jcugarte.com, www.jcugarte.com
       - LETSENCRYPT_HOST=jcugarte.com, www.jcugarte.com
       - LETSENCRYPT_EMAIL=contacto@jcugarte.com
